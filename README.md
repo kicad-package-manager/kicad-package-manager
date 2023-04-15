@@ -8,13 +8,16 @@ This is a package manager for KiCad symbols, footprints, 3d models, simulation f
 Goal
 ----
 
-Create a format for distributing the following kind of KiCad data:
+Create a format for distributing the following kind of KiCad features:
 
 * Symbols
 * Footprints
 * 3D Models
 * SPICE Simulation Code
 * Sub-sheets
+* Unit Tests
+* Command Runner
+* Plugins
 
 Projects can be created that programmatically generate these files.
 
@@ -37,12 +40,17 @@ kpm install https://github.com/danroblewis/kicad-eurorack-tools.git
 ### kpm.json
 ```json
 {
+	"name": "cool-project",
+	"version": "0.0.1",
+	"author": "danroblewis",
+	"homepage": "http://githab.info/magic/stuff",
 	"commands": {
-		"build": ""
+		"test": "./fictional-spice-tester"
 	},
-	"dependencies": [
-		"kicad-eurorack-tools": "0.0.57"
-	]
+	"dependencies": {
+		"jlcpcb-basics": "0.0.1",
+		"eurorack-parts": "0.0.57"
+	}
 }
 ```
 
