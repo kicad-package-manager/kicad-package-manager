@@ -9,7 +9,7 @@ def run_command(args):
 
 	# create our kpm.json config file
 	with open('kpm.json', 'w') as f:
-		f.write(c.to_json())
+		f.write(c.toJSON())
 
 	# add to or create .gitignore
 	if os.path.exists('.gitignore'):

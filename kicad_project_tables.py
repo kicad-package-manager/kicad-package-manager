@@ -4,6 +4,7 @@ import os
 
 
 def write_sym_lib_table(filenames):
+	print("writing sym")
 	s = [ Symbol('sym_lib_table'), [ Symbol('version'), 7 ] ]
 	for fname in filenames:
 		s.append([
@@ -19,6 +20,7 @@ def write_sym_lib_table(filenames):
 
 
 def write_fp_lib_table(pretty_paths):
+	print("writing foot")
 	s = [ Symbol('fp_lib_table'), [ Symbol('version'), 7 ] ]
 	for path in pretty_paths:
 		s.append([
@@ -31,13 +33,4 @@ def write_fp_lib_table(pretty_paths):
 		])
 	with open('fp-lib-table', 'w') as f:
 		sexpdata.dump(s, f)
-
-
-
-
-filenames = [ 'asdf.kicad_sym' ]
-write_sym_lib_table(filenames)
-
-filenames = [ 'asdf_foots.pretty' ]
-write_fp_lib_table(filenames)
 

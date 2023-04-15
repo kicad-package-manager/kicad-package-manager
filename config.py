@@ -22,15 +22,16 @@ class Config:
 		else:
 			raise Exception(f"unknown config value '{name}'")
 
-	def to_json(self):
+	def toJSON(self):
 		d = {}
 		for k in self.defaults:
 			d[k] = self.__getattr__(k)
-		return json.dumps(d)
+		return json.dumps(d, indent=4)
 
 
 def parse_config(filepath="./kpm.json"):
 	with open(filepath) as f:
 		return Config(json.load(f))
+
 
 

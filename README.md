@@ -35,7 +35,14 @@ Open the "KiCad Command Prompt"
 Usage
 -----
 
+```bash
+kpm init
+
 kpm install https://github.com/danroblewis/kicad-eurorack-tools.git
+
+kpm install .
+
+```
 
 ### kpm.json
 ```json
