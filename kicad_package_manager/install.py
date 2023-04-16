@@ -59,7 +59,7 @@ def install_libraries():
 	kicad_project_tables.write_sym_lib_table(symfiles)
 
 	# link footprint files
-	footfiles = glob.glob("**/*.kicad_mod", recursive=True)
+	footfiles = glob.glob("**/*.pretty", recursive=True)
 	kicad_project_tables.write_fp_lib_table(footfiles)
 
 	# install 3d models
