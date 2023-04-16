@@ -13,17 +13,15 @@ import shutil
 def run_command(args):
 	package_ref = args.package_ref
 
-	found_packages = {}
-
 	if package_ref == '.':
 		c = config.parse_config()
-		deps = explore_deps(c.name, c.version)
+		deps = {}
+		for depname, depversion in c.dependencies.items():
+			explore_deps(depname, depversion, deps)
 		install_deps(deps)
 
 
 def explore_deps(name, version, found_packages={}):
-	print('explore_deps', name, version)
-
 	if name in found_packages:
 		if found_packages[name] != version:
 			raise Exception(f"incompatible version for {name}: {version}, committed version is {found_packages[name]['version']}")
@@ -52,19 +50,18 @@ def install_package(name, version, zip_url):
 	package_dir = f"./kpm_modules/{name}@{version}/"
 	os.makedirs(package_dir, exist_ok=True)
 	res = requests.get(zip_url)
-	print(zip_url)
-	print(res)
 	r = zipfile.ZipFile(io.BytesIO(res.content)).extractall(package_dir)
-	print(r)
 
 
 def install_libraries():
 	# link symbol files
 	symfiles = glob.glob("**/*.kicad_sym", recursive=True)
+	print(symfiles)
 	kicad_project_tables.write_sym_lib_table(symfiles)
 
 	# link footprint files
 	footfiles = glob.glob("**/*.kicad_mod", recursive=True)
+	print(footfiles)
 	kicad_project_tables.write_fp_lib_table(footfiles)
 
 	# install 3d models

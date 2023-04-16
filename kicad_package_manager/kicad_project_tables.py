@@ -3,15 +3,15 @@ from sexpdata import Symbol
 import os
 
 
-def write_sym_lib_table(filenames):
+def write_sym_lib_table(files):
 	print("writing sym")
 	s = [ Symbol('sym_lib_table'), [ Symbol('version'), 7 ] ]
-	for fname in filenames:
+	for path in files:
 		s.append([
 			Symbol('lib'),
-			[ Symbol('name'), fname ],
+			[ Symbol('name'), path.replace('kpm_modules/','') ],
 			[ Symbol('type'), 'KiCad' ],
-			[ Symbol('uri'), os.path.join('${KIPRJMOD}/symbols', fname) ],
+			[ Symbol('uri'), os.path.join('${KIPRJMOD}', path) ],
 			[ Symbol('options'), '' ],
 			[ Symbol('descr'), '' ],
 		])
@@ -19,15 +19,15 @@ def write_sym_lib_table(filenames):
 		sexpdata.dump(s, f)
 
 
-def write_fp_lib_table(pretty_paths):
+def write_fp_lib_table(files):
 	print("writing foot")
 	s = [ Symbol('fp_lib_table'), [ Symbol('version'), 7 ] ]
-	for path in pretty_paths:
+	for path in files:
 		s.append([
 			Symbol('lib'),
-			[ Symbol('name'), path ],
+			[ Symbol('name'), path.replace('kpm_modules/','') ],
 			[ Symbol('type'), 'KiCad' ],
-			[ Symbol('uri'), os.path.join('${KIPRJMOD}/footprints/', path) ],
+			[ Symbol('uri'), os.path.join('${KIPRJMOD}', path) ],
 			[ Symbol('options'), '' ],
 			[ Symbol('descr'), '' ],
 		])

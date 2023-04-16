@@ -32,6 +32,5 @@ pip3 install twine
 
 to release:
 ```bash
-python3 setup.py build
-python3 setup.py upload
+python3 setup.py build && python3 setup.py upload
 ```

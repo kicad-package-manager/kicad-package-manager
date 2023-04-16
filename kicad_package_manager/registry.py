@@ -59,7 +59,6 @@ def get_release_for(package_name, version):
 	releases = temporary_registry[package_name]['releases']
 	found = None
 	for release in releases:
-		print(release)
 		if release['version'] == version:
 			return release
 
