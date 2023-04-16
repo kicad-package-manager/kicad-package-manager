@@ -71,7 +71,7 @@ To add a new package to the package index, [submit a pull request](https://githu
 	},
 	"dependencies": {
 		"kpm-jlcpcb-basic": "0.0.5",
-		"eurorack-parts": "0.0.57"
+		"eurorack-parts": "0.0.1"
 	}
 }
 ```
