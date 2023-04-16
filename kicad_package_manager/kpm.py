@@ -1,10 +1,8 @@
-#!/bin/env python3
-
 import argparse
-import install
-import init
+from . import install
+from . import init
 
-if __name__ == '__main__':
+def main():
 	parser = argparse.ArgumentParser(
 		prog="kpm",
 		description="KiCad Package Manager",

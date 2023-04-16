@@ -1,5 +1,5 @@
-KiCad Package Manager
-#######
+# KiCad Package Manager
+
 
 This is a package manager for KiCad symbols, footprints, 3d models, simulation files, and hierarchical sheets.
 
@@ -28,7 +28,9 @@ Installing KPM
 
 Open the "KiCad Command Prompt"
 
-`pip3 install kicad-package-manager`
+```bash
+pip3 install kicad-package-manager
+```
 
 
 
@@ -41,8 +43,8 @@ kpm init
 kpm install https://github.com/danroblewis/kicad-eurorack-tools.git
 
 kpm install .
-
 ```
+
 
 ### kpm.json
 ```json
@@ -73,4 +75,37 @@ After updating your libraries, the symbols/footprints in your schematic files wo
 
 (If we can find a way to do this within kpm, that would be awesome.)
 
+
+
+Package Directory Structure
+---------------------------
+```
+/kpm.json
+
+/symbols/
+/symbols/mysymbols.kicad_sym
+
+/footprints/
+/footprints/myfootprints.pretty/
+/footprints/myfootprints.pretty/myfootprints.kicad_mod
+
+/3dmodels/
+/3dmodels/something.step
+
+/plugins/
+/plugins/kicad-eurorack-tools/
+/plugins/kicad-eurorack-tools/__init__.py
+
+/simulation/
+/simulation/mysim.spice
+
+/sheets/
+/sheets/mysubsheet.kicad_sch
+
+/tests/
+/tests/mytest.py
+
+/scripts/
+/scripts/mycommand.py
+```
 

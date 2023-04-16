@@ -1,12 +1,13 @@
 import json
-import config
+from . import config
 import requests
-from registry import get_release_for
+from .registry import get_release_for
 import os
 import io
 import zipfile
-import kicad_project_tables
+from . import kicad_project_tables
 import glob
+import shutil
 
 
 def run_command(args):
@@ -40,16 +41,21 @@ def explore_deps(name, version, found_packages={}):
 
 
 def install_deps(deps):
+	shutil.rmtree("./kpm_modules", ignore_errors=True)
 	for package_name, release in deps.items():
+		print(f"installing {package_name}")
 		install_package(package_name, release['version'], release['artifact_url'])
 	install_libraries()
 
 
 def install_package(name, version, zip_url):
-	package_dir = f"./kpm_modules"
+	package_dir = f"./kpm_modules/{name}@{version}/"
 	os.makedirs(package_dir, exist_ok=True)
 	res = requests.get(zip_url)
-	zipfile.ZipFile(io.BytesIO(res.content)).extractall(package_dir)
+	print(zip_url)
+	print(res)
+	r = zipfile.ZipFile(io.BytesIO(res.content)).extractall(package_dir)
+	print(r)
 
 
 def install_libraries():

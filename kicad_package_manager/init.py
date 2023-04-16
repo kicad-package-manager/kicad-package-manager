@@ -1,5 +1,5 @@
 
-import config
+from . import config
 import os
 
 def run_command(args):
