@@ -21,6 +21,17 @@ Create a format for distributing the following kind of KiCad features:
 
 Projects can be created that programmatically generate these files.
 
+Currently Supports:
+
+* Symbols
+* Footprints
+
+Up Next:
+
+* 3D Models
+* Command Runner
+* SPICE Simulation Code
+
 
 
 Installing KPM
