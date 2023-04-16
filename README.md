@@ -70,7 +70,7 @@ To add a new package to the package index, [submit a pull request](https://githu
 		"test": "./fictional-spice-tester"
 	},
 	"dependencies": {
-		"jlcpcb-basics": "0.0.6",
+		"kpm-jlcpcb-basic": "0.0.6",
 		"eurorack-parts": "0.0.57"
 	}
 }
