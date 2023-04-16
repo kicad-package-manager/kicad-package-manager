@@ -32,5 +32,6 @@ pip3 install twine
 
 to release:
 ```bash
-python -m twine upload --repository kicad-package-manager dist/*
+python3 setup.py build
+python3 setup.py upload
 ```

@@ -3,3 +3,5 @@ __pycache__
 **/__pycache__
 dist
 kicad_package_manager.egg-infobuild
+build
+kicad_package_manager.egg-info

@@ -3,8 +3,49 @@ from functools import lru_cache
 import pathlib
 import os
 
-temporary_registry = json.load(open(os.path.join(pathlib.Path(__file__).parent, 'registry.json')))
+registry_json = """{
+	"sample_kpm_package": {
+		"owner": "danroblewis",
+		"homepage": "https://github.com/danroblewis/sample_kpm_package",
+		"releases": [
+			{
+				"version": "0.0.2",
+				"artifact_url": "https://github.com/danroblewis/sample_kpm_package/archive/refs/tags/v0.0.2.zip",
+				"author": "danroblewis"
+			}
+		]
+	},
+	"sample_kpm_package_2": {
+		"owner": "danroblewis",
+		"homepage": "https://github.com/danroblewis/sample_kpm_package_2",
+		"releases": [
+			{
+				"version": "0.0.2",
+				"artifact_url": "https://github.com/danroblewis/sample_kpm_package_2/archive/refs/tags/v0.0.2.zip",
+				"author": "danroblewis",
+				"dependencies": {
+					"sample_kpm_package": "0.0.2"
+				}
+			}
+		]
+	},
+	"sample_kpm_package_3": {
+		"owner": "danroblewis",
+		"homepage": "https://github.com/danroblewis/sample_kpm_package_3",
+		"releases": [
+			{
+				"version": "0.0.2",
+				"artifact_url": "https://github.com/danroblewis/sample_kpm_package_3/archive/refs/tags/v0.0.2.zip",
+				"author": "danroblewis",
+				"dependencies": {
+					"sample_kpm_package_2": "0.0.2"
+				}
+			}
+		]
+	}
+}"""
 
+temporary_registry = json.loads(registry_json)
 
 def search(package_name):
 	pass
