@@ -29,6 +29,11 @@ def explore_deps(name, version, found_packages={}):
 			return found_packages
 
 	release = get_release_for(name, version)
+
+	if release is None:
+		print(f"ERROR: version {version} not found for package {name}\n\n")
+		raise Exception("package version missing")
+
 	found_packages[name] = release
 
 	if 'dependencies' in release:
@@ -41,7 +46,7 @@ def explore_deps(name, version, found_packages={}):
 def install_deps(deps):
 	shutil.rmtree("./kpm_modules", ignore_errors=True)
 	for package_name, release in deps.items():
-		print(f"installing {package_name}")
+		print(f"installing {package_name} @ {release['version']}")
 		install_package(package_name, release['version'], release['artifact_url'])
 	install_libraries()
 
@@ -55,11 +60,11 @@ def install_package(name, version, zip_url):
 
 def install_libraries():
 	# link symbol files
-	symfiles = glob.glob("kpm_modules/**/*.kicad_sym", recursive=True)
+	symfiles = glob.glob("kpm_modules/**/symbols/*.kicad_sym", recursive=True)
 	kicad_project_tables.write_sym_lib_table(symfiles)
 
 	# link footprint files
-	footfiles = glob.glob("kpm_modules/**/*.pretty", recursive=True)
+	footfiles = glob.glob("kpm_modules/**/footprints/*.pretty", recursive=True)
 	kicad_project_tables.write_fp_lib_table(footfiles)
 
 	# install 3d models
