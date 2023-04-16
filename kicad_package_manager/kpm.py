@@ -1,6 +1,9 @@
 import argparse
 from . import install
 from . import init
+from . import listt
+from . import search
+
 
 def main():
 	parser = argparse.ArgumentParser(
@@ -16,6 +19,11 @@ def main():
 
 	init_parser = subparsers.add_parser('init')
 
+	list_parser = subparsers.add_parser('list')
+
+	search_parser = subparsers.add_parser('search')
+	search_parser.add_argument('package_ref')
+
 	args = parser.parse_args()
 
 	if args.command == 'install':
@@ -24,5 +32,9 @@ def main():
 	if args.command == 'init':
 		init.run_command(args)
 
+	if args.command == 'list':
+		listt.run_command(args)
 
+	if args.command == 'search':
+		search.run_command(args)
 
