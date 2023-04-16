@@ -18,7 +18,7 @@ URL = 'https://github.com/danroblewis/kicad-package-manager'
 EMAIL = 'daniel.robert.lewis@gmail.com'
 AUTHOR = 'Daniel Lewis'
 REQUIRES_PYTHON = '>=3.7.0'
-VERSION = '0.0.11'
+VERSION = '0.0.12'
 
 # What packages are required for this module to be executed?
 REQUIRED = [

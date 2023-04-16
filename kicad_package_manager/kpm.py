@@ -3,6 +3,7 @@ from . import install
 from . import init
 from . import listt
 from . import search
+from . import show
 
 
 def main():
@@ -24,6 +25,9 @@ def main():
 	search_parser = subparsers.add_parser('search')
 	search_parser.add_argument('package_ref')
 
+	show_parser = subparsers.add_parser('show')
+	show_parser.add_argument('package_ref')
+
 	args = parser.parse_args()
 
 	if args.command == 'install':
@@ -37,4 +41,7 @@ def main():
 
 	if args.command == 'search':
 		search.run_command(args)
+
+	if args.command == 'show':
+		show.run_command(args)
 

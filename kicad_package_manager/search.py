@@ -2,19 +2,14 @@ from . import registry
 
 
 def run_command(args):
-	package = registry.search(args.package_ref)
-	print_package(args.package_ref, package)
+	packages = registry.search(args.package_ref)
+	print_packages(packages)
 
 
-def print_package(name, package):
-	print(f"Package: {name}")
-	print(f"Owner: {package['owner']}")
-	print(f"Homepage: {package['homepage']}")
+def print_packages(packages):
+	print(f"Matching packages from registry:")
 	print()
-	print("Releases:")
-	for release in package['releases']:
-		print(f"v{release['version']} - {release['author']} - {release['artifact_url']}")
-		print("  dependencies:")
-		for dep, version in release['dependencies'].items():
-			print(f"  - {dep}@{version}")
+	for name, package in packages.items():
+		release = package['releases'][-1]
+		print(f"{name}\tv{release['version']} - {release['author']} - {release['artifact_url']}")
 	print()

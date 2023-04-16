@@ -24,8 +24,17 @@ def get_zip_url_for(package_name, version):
 
 
 def search(package_name):
-	package = temporary_registry[package_name]
-	return package
+	matches = {}
+	for name, package in temporary_registry.items():
+		if package_name in name:
+			matches[name] = package
+	return matches
+
+
+def get(package_name):
+	if package_name not in temporary_registry:
+		return None
+	return temporary_registry[package_name]
 
 
 def listt():
