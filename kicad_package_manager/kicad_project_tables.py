@@ -1,16 +1,15 @@
 import sexpdata
 from sexpdata import Symbol
+import ntpath
 import os
-import re
 
 
 def write_sym_lib_table(files):
 	print("writing sym")
 	s = [ Symbol('sym_lib_table'), [ Symbol('version'), 7 ] ]
 	for path in files:
-		print(path)
-		name = re.match(".*[\\/]([^\\/]+\.kicad_sym).*", path).group(1)[:-10]
-		print(name)
+		fname = ntpath.basename(path)
+		name = fname.replace(".kicad_sym", "")
 		s.append([
 			Symbol('lib'),
 			[ Symbol('name'), name ],
@@ -27,10 +26,8 @@ def write_fp_lib_table(files):
 	print("writing foot")
 	s = [ Symbol('fp_lib_table'), [ Symbol('version'), 7 ] ]
 	for path in files:
-		print(path)
-		name = re.match(".*[\\/]([^\\/]+\.pretty).*", path).group(1)[:-7]
-		name.replace(".pretty", "")
-		print(name)
+		fname = ntpath.basename(path)
+		name = fname.replace(".pretty", "")
 		s.append([
 			Symbol('lib'),
 			[ Symbol('name'), name ],
