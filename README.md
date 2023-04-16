@@ -39,9 +39,9 @@ Usage
 
 ```bash
 kpm init
-
-kpm install https://github.com/danroblewis/kicad-eurorack-tools.git
-
+kpm list
+kpm search jlc
+kpm show kpm-jlcpcb-basic
 kpm install .
 ```
 
@@ -59,7 +59,7 @@ To add a new package to the package index, [submit a pull request](https://githu
 		"test": "./fictional-spice-tester"
 	},
 	"dependencies": {
-		"jlcpcb-basics": "0.0.1",
+		"jlcpcb-basics": "0.0.6",
 		"eurorack-parts": "0.0.57"
 	}
 }
