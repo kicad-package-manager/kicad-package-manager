@@ -4,7 +4,7 @@ import json
 class Config:
 	defaults = {
 		"name": "",
-		"version": "0.0.0",
+		"version": "0.0.1",
 		"author": "",
 		"homepage": "",
 		"commands": {},
