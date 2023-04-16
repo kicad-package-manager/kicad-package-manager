@@ -56,12 +56,10 @@ def install_package(name, version, zip_url):
 def install_libraries():
 	# link symbol files
 	symfiles = glob.glob("**/*.kicad_sym", recursive=True)
-	print(symfiles)
 	kicad_project_tables.write_sym_lib_table(symfiles)
 
 	# link footprint files
 	footfiles = glob.glob("**/*.kicad_mod", recursive=True)
-	print(footfiles)
 	kicad_project_tables.write_fp_lib_table(footfiles)
 
 	# install 3d models
