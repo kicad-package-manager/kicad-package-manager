@@ -45,6 +45,8 @@ kpm install https://github.com/danroblewis/kicad-eurorack-tools.git
 kpm install .
 ```
 
+To add a new package to the package index, [submit a pull request](https://github.com/danroblewis/kicad-package-index)
+
 
 ### kpm.json
 ```json
