@@ -8,14 +8,15 @@ temporary_registry = requests.get("https://raw.githubusercontent.com/danroblewis
 
 @lru_cache
 def get_release_for(package_name, version):
-	if package_name not in temporary_registry:
+	package = get(package_name)
+	if package is None:
 		raise Exception(f"no package exists by name {package_name}")
 
-	releases = temporary_registry[package_name]['releases']
-	found = None
-	for release in releases:
+	for release in package['releases']:
 		if release['version'] == version:
 			return release
+
+	return None
 
 
 def get_zip_url_for(package_name, version):
@@ -24,17 +25,18 @@ def get_zip_url_for(package_name, version):
 
 
 def search(package_name):
-	matches = {}
-	for name, package in temporary_registry.items():
-		if package_name in name:
-			matches[name] = package
+	matches = []
+	for package in temporary_registry:
+		if package_name in package['name']:
+			matches.append(package)
 	return matches
 
 
 def get(package_name):
-	if package_name not in temporary_registry:
-		return None
-	return temporary_registry[package_name]
+	for package in temporary_registry:
+		if package['name'] == package_name:
+			return package
+	return None
 
 
 def listt():

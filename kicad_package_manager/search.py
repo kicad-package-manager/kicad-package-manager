@@ -9,7 +9,7 @@ def run_command(args):
 def print_packages(packages):
 	print(f"Matching packages from registry:")
 	print()
-	for name, package in packages.items():
+	for package in packages:
 		release = package['releases'][-1]
-		print(f"{name}\tv{release['version']} - {release['author']} - {release['artifact_url']}")
+		print(f"{package['name']}\tv{release['version']} - {release['author']} - {release['artifact_url']}")
 	print()
