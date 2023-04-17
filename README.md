@@ -29,8 +29,8 @@ Currently Supports:
 Up Next:
 
 * 3D Models
+* Subsheets
 * Command Runner
-* SPICE Simulation Code
 
 
 
