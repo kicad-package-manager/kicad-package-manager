@@ -3,10 +3,13 @@ import pathlib
 import os
 import requests
 
-temporary_registry = requests.get("https://raw.githubusercontent.com/danroblewis/kicad-package-index/main/registry.json").json()
+
+repourl = "http://bodygen.re:5001"
+if os.path.exists(".repourl"):
+	with open('.repourl') as f:
+		repourl = f.read().strip()
 
 
-@lru_cache
 def get_release_for(package_name, version):
 	package = get(package_name)
 	if package is None:
@@ -25,19 +28,26 @@ def get_zip_url_for(package_name, version):
 
 
 def search(package_name):
-	matches = []
-	for package in temporary_registry:
-		if package_name in package['name']:
-			matches.append(package)
-	return matches
+	r = requests.get(f"{repourl}/packages?term={package_name}")
+	if r.status_code != 200:
+		print("couldnt get packages list from registry")
+		print(r)
+		print(r.status_code)
+		print(r.content)
+		raise Exception("nooo")
+	return r.json()
 
 
 def get(package_name):
-	for package in temporary_registry:
-		if package['name'] == package_name:
-			return package
-	return None
+	r = requests.get(f"{repourl}/package/{package_name}")
+	if r.status_code != 200:
+		print("couldnt get package from registry")
+		print(r)
+		print(r.status_code)
+		print(r.content)
+		raise Exception("nooo")
+	return r.json()
 
 
 def listt():
-	return temporary_registry
+	return search("")

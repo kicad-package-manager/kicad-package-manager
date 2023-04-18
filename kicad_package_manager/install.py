@@ -47,6 +47,7 @@ def install_deps(deps):
 	shutil.rmtree("./kpm_modules", ignore_errors=True)
 	for package_name, release in deps.items():
 		print(f"installing {package_name} @ {release['version']}")
+		print('downloading', release)
 		install_package(package_name, release['version'], release['artifact_url'])
 	install_libraries()
 

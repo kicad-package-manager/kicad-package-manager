@@ -18,6 +18,7 @@ def print_package(name, package):
 	for release in package['releases']:
 		print(f"v{release['version']} - {release['author']} - {release['artifact_url']}")
 		print("  dependencies:")
-		for dep, version in release['dependencies'].items():
-			print(f"  - {dep}@{version}")
+		if 'dependencies' in release:
+			for dep, version in release['dependencies'].items():
+				print(f"  - {dep}@{version}")
 	print()

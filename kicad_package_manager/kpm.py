@@ -4,7 +4,8 @@ from . import init
 from . import listt
 from . import search
 from . import show
-
+from . import build
+from . import upload
 
 def main():
 	parser = argparse.ArgumentParser(
@@ -28,6 +29,10 @@ def main():
 	show_parser = subparsers.add_parser('show')
 	show_parser.add_argument('package_ref')
 
+	build_parser = subparsers.add_parser('build')
+
+	upload_parser = subparsers.add_parser('upload')
+
 	args = parser.parse_args()
 
 	if args.command == 'install':
@@ -44,4 +49,10 @@ def main():
 
 	if args.command == 'show':
 		show.run_command(args)
+
+	if args.command == 'build':
+		build.run_command(args)
+
+	if args.command == 'upload':
+		upload.run_command(args)
 

@@ -56,6 +56,7 @@ def run_command(args):
             if 'kpm_modules' not in fr.read():
                 with open('.gitignore', 'a') as fw:
                     fw.write("\nkpm_modules")
+                    fw.write("\n.kpmrc")
     else:
         with open('.gitignore', 'w') as f:
             f.write("kpm_modules\n")
