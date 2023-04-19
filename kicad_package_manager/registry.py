@@ -21,7 +21,10 @@ def get_release_for(package_name, version):
 
 def get_zip_url_for(package_name, version):
 	release = get_release_for(package_name, version)
-	return release['artifact_url']
+	url = release['artifact_url']
+	if url[0] == '/':
+		url = repourl + url
+	return url
 
 
 def search(package_name):
