@@ -62,10 +62,8 @@ def run_command(args):
 		"dependencies": kpmjson['dependencies']
 	}
 	pkgdata['releases'].append(new_release)
-	print(pkgdata)
 	print(json.dumps(pkgdata, indent=4))
 	r = requests.put(f"{repourl}/package/{pkgname}", json=pkgdata, headers={"Authorization": kpmrc['token']})
-	print(r)
 	print('status', r.status_code)
 	print('content', r.content)
 

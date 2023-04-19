@@ -1,7 +1,7 @@
 import json
 from . import config
 import requests
-from .registry import get_release_for
+from .registry import get_release_for, repourl
 import os
 import io
 import zipfile
@@ -47,7 +47,6 @@ def install_deps(deps):
 	shutil.rmtree("./kpm_modules", ignore_errors=True)
 	for package_name, release in deps.items():
 		print(f"installing {package_name} @ {release['version']}")
-		print('downloading', release)
 		install_package(package_name, release['version'], release['artifact_url'])
 	install_libraries()
 
@@ -55,6 +54,8 @@ def install_deps(deps):
 def install_package(name, version, zip_url):
 	package_dir = f"./kpm_modules/{name}@{version}/"
 	os.makedirs(package_dir, exist_ok=True)
+	if zip_url[0] == '/':
+		urlzip_url = repourl + zip_url
 	res = requests.get(zip_url)
 	r = zipfile.ZipFile(io.BytesIO(res.content)).extractall(package_dir)
 
