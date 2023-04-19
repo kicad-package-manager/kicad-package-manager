@@ -1,14 +1,14 @@
 import json
 from . import config
 import requests
-from .registry import get_release_for, repourl
+from .registry import get_release_for, repourl, get as get_package
 import os
 import io
 import zipfile
 from . import kicad_project_tables
 import glob
 import shutil
-
+from .init import init_kpmjson
 
 def run_command(args):
 	package_ref = args.package_ref
@@ -20,6 +20,42 @@ def run_command(args):
 			explore_deps(depname, depversion, deps)
 		install_deps(deps)
 
+	else:
+		if not os.path.exists('kpm.json'):
+			init_kpmjson()
+
+		with open('kpm.json') as kpmf:
+			kpmjson = json.loads(kpmf.read())
+
+		name = args.package_ref
+		package = get_package(name)
+		if package is None:
+			print(f"Could not find a package by name {name}")
+			return
+
+		if args.version is None:
+			version = package['releases'][-1]['version']
+		else:
+			version = args.version
+			version_found = False
+			for release in package['releases']:
+				if release['version'] == version:
+					version_found = True
+			if not version_found:
+				print(f"Could not find version {version} for package {name}. Did you mean {package['releases'][-1]['version']}?")
+				return
+
+		if name in kpmjson['dependencies']:
+			if kpmjson['dependencies'][name] == version:
+				print(f"Package {name} is already installed! run `kpm install .` to load all of your libraries")
+				return
+
+		kpmjson['dependencies'][name] = version
+
+		with open('kpm.json', 'w') as kpmf:
+			kpmf.write(json.dumps(kpmjson, indent=4))
+
+		install_deps(explore_deps(name, version))
 
 def explore_deps(name, version, found_packages={}):
 	if name in found_packages:

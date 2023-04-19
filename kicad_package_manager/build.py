@@ -6,7 +6,7 @@ import zipfile
 def zipdir(path, ziph):
     for root, dirs, files in os.walk(path):
         for file in files:
-            print(os.path.join(root, file))
+            print("adding", os.path.join(root, file))
             ziph.write(os.path.join(root, file), 
                        os.path.relpath(os.path.join(root, file), 
                                        os.path.join(path, '..')).replace(path + "/","",1))
@@ -29,3 +29,5 @@ def run_command(args):
     with zipfile.ZipFile('package.zip', 'w', zipfile.ZIP_LZMA) as zh:
         zipdir(build_dir, zh)
 
+    if not args.keep_build_dir:
+        shutil.rmtree(build_dir)

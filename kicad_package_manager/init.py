@@ -6,8 +6,10 @@ from . import registry
 from . import config
 
 def run_command(args):
-    # create empty json file
+    init_kpmjson()
 
+
+def init_kpmjson():
     modules = set()
 
     # get footprints from schematics
@@ -57,6 +59,8 @@ def run_command(args):
                 with open('.gitignore', 'a') as fw:
                     fw.write("\nkpm_modules")
                     fw.write("\n.kpmrc")
+                    fw.write("\npackage.zip")
+                    fw.write("\nbuild")
     else:
         with open('.gitignore', 'w') as f:
             f.write("kpm_modules\n")

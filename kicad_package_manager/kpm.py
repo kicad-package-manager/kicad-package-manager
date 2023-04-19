@@ -16,43 +16,26 @@ def main():
 
 	subparsers = parser.add_subparsers(dest='command')
 	
-	install_parser = subparsers.add_parser('install')
-	install_parser.add_argument('package_ref')
+	commands = {
+		"list":    { "handler": listt,   "args": [], },
+		"search":  { "handler": search,  "args": ["package_ref"], },
+		"show":    { "handler": show,    "args": ["package_ref"], },
+		"init":    { "handler": init,    "args": [], },
+		"install": { "handler": install, "args": ["package_ref"], },
+		"build":   { "handler": build,   "args": [], },
+		"upload":  { "handler": upload,  "args": [], },
+	}
+	for command_name in commands:
+		commands[command_name]['parser'] = subparsers.add_parser(command_name)
+		for arg in commands[command_name]['args']:
+			commands[command_name]['parser'].add_argument(arg)
 
-	init_parser = subparsers.add_parser('init')
-
-	list_parser = subparsers.add_parser('list')
-
-	search_parser = subparsers.add_parser('search')
-	search_parser.add_argument('package_ref')
-
-	show_parser = subparsers.add_parser('show')
-	show_parser.add_argument('package_ref')
-
-	build_parser = subparsers.add_parser('build')
-
-	upload_parser = subparsers.add_parser('upload')
+	commands['build']['parser'].add_argument('--keep-build-dir', '-k', action="store_true", required=False, default=False)
+	commands['install']['parser'].add_argument('--version', '-v', type=str, required=False)
 
 	args = parser.parse_args()
 
-	if args.command == 'install':
-		install.run_command(args)
-
-	if args.command == 'init':
-		init.run_command(args)
-
-	if args.command == 'list':
-		listt.run_command(args)
-
-	if args.command == 'search':
-		search.run_command(args)
-
-	if args.command == 'show':
-		show.run_command(args)
-
-	if args.command == 'build':
-		build.run_command(args)
-
-	if args.command == 'upload':
-		upload.run_command(args)
+	for command_name in commands:
+		if args.command == command_name:
+			commands[command_name]['handler'].run_command(args)
 

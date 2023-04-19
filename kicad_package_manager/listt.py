@@ -11,5 +11,5 @@ def print_packages(packages):
 	print()
 	for package in packages:
 		release = package['releases'][-1]
-		print(f"{package['name']}\tv{release['version']} - {release['author']} - {release['artifact_url']}")
+		print(f"{package['name']}\tv{release['version']} - {release['author']}")
 	print()
