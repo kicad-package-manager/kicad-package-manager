@@ -27,7 +27,6 @@ def main():
 		"install": install,
 		"build":   build,
 		"upload":  upload,
-		"release": release,
 		"run":     run,
 		"init_package": init_package,
 	}
