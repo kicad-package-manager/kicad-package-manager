@@ -6,6 +6,8 @@ from . import search
 from . import show
 from . import build
 from . import upload
+from . import run
+
 
 def main():
 	parser = argparse.ArgumentParser(
@@ -14,7 +16,7 @@ def main():
 		epilog="manage kicad parts and plugins good"
 	)
 
-	subparsers = parser.add_subparsers(dest='command')
+	subparsers = parser.add_subparsers(dest='_command')
 	
 	commands = {
 		"list":    listt,
@@ -24,6 +26,7 @@ def main():
 		"install": install,
 		"build":   build,
 		"upload":  upload,
+		"run":     run,
 	}
 	for command_name, module in commands.items():
 		subparser = subparsers.add_parser(command_name)
@@ -31,8 +34,13 @@ def main():
 			module.init_command(subparser)
 
 	args = parser.parse_args()
+	print(args)
+
+	if args._command is None:
+		parser.print_help()
+		return
 
 	for command_name, module in commands.items():
-		if args.command == command_name:
+		if args._command == command_name:
 			module.run_command(args)
 

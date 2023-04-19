@@ -34,3 +34,14 @@ to release:
 ```bash
 python3 setup.py build && python3 setup.py upload
 ```
+
+
+
+ToDo:
+- kpm release command to increase packag version in kpm.json, build, and upload
+- example .github/workflows
+	https://github.com/ryanfobel/kicad-helpers/blob/main/.github/workflows/python-package.yml
+	- should run release command
+	- should tag commit and make github release with package.zip
+- kpm generator for a package template
+

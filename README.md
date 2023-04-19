@@ -105,6 +105,7 @@ Your package will include your `kpm.json` file and any of these directories if t
 /sheets
 /tests
 /scripts
+/__init__.py
 ```
 
 To build the package
@@ -131,6 +132,29 @@ kpm upload
 ```
 
 You should then see your package in the `kpm search <yourpackagename>` 
+
+
+Writing Commands
+----------------
+
+A command is ran with `kpm run <commandname> <arguments>`.
+
+If you'd like to create a package that adds a new command to `kpm`, create a file `commands/__init__.py`:
+
+```py
+def register(subparsers):
+	parser = subparsers.add_parser('mycommand')
+	parser.add_argument('thing')
+	parser.add_argument('--feature', '-f', action="store_true", required=False)
+	return ['mycommand']
+
+
+def run_command(args):
+	if args.command == 'mycommand':
+		print(args.thing)
+		print(args.feature)
+```
+
 
 Usage
 -----
