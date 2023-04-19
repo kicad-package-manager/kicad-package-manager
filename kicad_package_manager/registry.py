@@ -4,10 +4,7 @@ import os
 import requests
 
 
-repourl = "http://bodygen.re:5001"
-if os.path.exists(".repourl"):
-	with open('.repourl') as f:
-		repourl = f.read().strip()
+repourl = "http://vps-407d02be.vps.ovh.us:5001"
 
 
 def get_release_for(package_name, version):

@@ -3,10 +3,7 @@ import os
 import json
 
 
-repourl = "http://localhost:5001"
-if os.path.exists(".repourl"):
-	with open('.repourl') as f:
-		repourl = f.read().strip()
+repourl = "http://vps-407d02be.vps.ovh.us:5001"
 
 
 def run_command(args):
@@ -67,18 +64,8 @@ def run_command(args):
 	pkgdata['releases'].append(new_release)
 	print(pkgdata)
 	print(json.dumps(pkgdata, indent=4))
-	r = requests.put(f"{repourl}/package/{pkgname}", json=pkgdata)
+	r = requests.put(f"{repourl}/package/{pkgname}", json=pkgdata, headers={"Authorization": kpmrc['token']})
 	print(r)
 	print('status', r.status_code)
 	print('content', r.content)
 
-
-
-# kpm upload
-# - read kpm.json
-# - read ~/.kpmrc
-# - upload artifact files to version specified in kpm.json
-# - combine data from kpm.json and artifact upload responses to create release metadata
-# - pull previous package record from api
-# - add release to the end of the package releases list
-# - write to API with full package record and personal token
