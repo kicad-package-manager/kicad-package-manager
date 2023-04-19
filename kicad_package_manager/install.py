@@ -10,17 +10,15 @@ import glob
 import shutil
 from .init import init_kpmjson
 
+
+def init_command(parser):
+	parser.add_argument('package_ref')
+	parser.add_argument('--version', '-v', type=str, required=False)
+
 def run_command(args):
 	package_ref = args.package_ref
 
-	if package_ref == '.':
-		c = config.parse_config()
-		deps = {}
-		for depname, depversion in c.dependencies.items():
-			explore_deps(depname, depversion, deps)
-		install_deps(deps)
-
-	else:
+	if package_ref != '.':
 		if not os.path.exists('kpm.json'):
 			init_kpmjson()
 
@@ -55,7 +53,18 @@ def run_command(args):
 		with open('kpm.json', 'w') as kpmf:
 			kpmf.write(json.dumps(kpmjson, indent=4))
 
-		install_deps(explore_deps(name, version))
+	install_from_config()
+
+
+def install_from_config():
+		with open('kpm.json') as kpmf:
+			kpmjson = json.loads(kpmf.read())
+		deps = {}
+		if 'dependencies' in kpmjson:
+			for depname, depversion in kpmjson['dependencies'].items():
+				explore_deps(depname, depversion, deps)
+			install_deps(deps)
+
 
 def explore_deps(name, version, found_packages={}):
 	if name in found_packages:

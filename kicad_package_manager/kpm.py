@@ -17,25 +17,22 @@ def main():
 	subparsers = parser.add_subparsers(dest='command')
 	
 	commands = {
-		"list":    { "handler": listt,   "args": [], },
-		"search":  { "handler": search,  "args": ["package_ref"], },
-		"show":    { "handler": show,    "args": ["package_ref"], },
-		"init":    { "handler": init,    "args": [], },
-		"install": { "handler": install, "args": ["package_ref"], },
-		"build":   { "handler": build,   "args": [], },
-		"upload":  { "handler": upload,  "args": [], },
+		"list":    listt,
+		"search":  search,
+		"show":    show,
+		"init":    init,
+		"install": install,
+		"build":   build,
+		"upload":  upload,
 	}
-	for command_name in commands:
-		commands[command_name]['parser'] = subparsers.add_parser(command_name)
-		for arg in commands[command_name]['args']:
-			commands[command_name]['parser'].add_argument(arg)
-
-	commands['build']['parser'].add_argument('--keep-build-dir', '-k', action="store_true", required=False, default=False)
-	commands['install']['parser'].add_argument('--version', '-v', type=str, required=False)
+	for command_name, module in commands.items():
+		subparser = subparsers.add_parser(command_name)
+		if hasattr(module, 'init_command'):
+			module.init_command(subparser)
 
 	args = parser.parse_args()
 
-	for command_name in commands:
+	for command_name, module in commands.items():
 		if args.command == command_name:
-			commands[command_name]['handler'].run_command(args)
+			module.run_command(args)
 

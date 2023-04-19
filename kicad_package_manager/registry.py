@@ -12,6 +12,9 @@ def get_release_for(package_name, version):
 	if package is None:
 		raise Exception(f"no package exists by name {package_name}")
 
+	if version == 'latest':
+		return package['releases'][-1]
+
 	for release in package['releases']:
 		if release['version'] == version:
 			return release

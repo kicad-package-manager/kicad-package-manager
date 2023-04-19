@@ -1,6 +1,10 @@
 from . import registry
 
 
+def init_command(parser):
+	parser.add_argument('package_ref')
+
+
 def run_command(args):
 	package = registry.get(args.package_ref)
 	if package is None:

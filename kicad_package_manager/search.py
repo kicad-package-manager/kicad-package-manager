@@ -1,6 +1,10 @@
 from . import registry
 
 
+def init_command(parser):
+	parser.add_argument('package_ref')
+
+
 def run_command(args):
 	packages = registry.search(args.package_ref)
 	print_packages(packages)

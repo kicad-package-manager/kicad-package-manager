@@ -5,6 +5,7 @@ import os
 from . import registry
 from . import config
 
+
 def run_command(args):
     init_kpmjson()
 
