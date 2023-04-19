@@ -98,14 +98,13 @@ Your package will include your `kpm.json` file and any of these directories if t
 ```
 /symbols
 /footprints
-/3dmodels
+/commands
 /3dmodels
 /plugins
 /simulation
-/sheets
+/subsheets
 /tests
-/scripts
-/__init__.py
+/commands
 ```
 
 To build the package
@@ -143,10 +142,10 @@ If you'd like to create a package that adds a new command to `kpm`, create a fil
 
 ```py
 def register(subparsers):
+	print("registering mycommand")
 	parser = subparsers.add_parser('mycommand')
 	parser.add_argument('thing')
 	parser.add_argument('--feature', '-f', action="store_true", required=False)
-	return ['mycommand']
 
 
 def run_command(args):

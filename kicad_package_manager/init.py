@@ -10,31 +10,32 @@ def run_command(args):
     init_kpmjson()
 
 
-def init_kpmjson():
+def init_kpmjson(search_existing=True):
     modules = set()
 
-    # get footprints from schematics
-    for fname in glob.glob('**.kicad_sch'):
-        with open(fname) as f:
-            text = f.read()
-            footprints = re.findall(r'\(\s*property\s+"Footprint"\s+"[^"]+"', text)
-            footprints = [ re.sub('^.* "Footprint" "', '', fp).replace('"','') for fp in footprints]
-            for ft in footprints:
-                modules.add("kicad_lib_footprints_" + re.sub(':.*', '', ft))
+    if search_existing:
+        # get footprints from schematics
+        for fname in glob.glob('**.kicad_sch'):
+            with open(fname) as f:
+                text = f.read()
+                footprints = re.findall(r'\(\s*property\s+"Footprint"\s+"[^"]+"', text)
+                footprints = [ re.sub('^.* "Footprint" "', '', fp).replace('"','') for fp in footprints]
+                for ft in footprints:
+                    modules.add("kicad_lib_footprints_" + re.sub(':.*', '', ft))
 
-        symbols = re.findall(r'\(\s*symbol\s+"[^"]+:', text)
-        symbols = [ re.sub('^.*"', '', s).replace(':','') for s in symbols]
-        for s in symbols:
-            modules.add("kicad_lib_symbols_" + s)
+            symbols = re.findall(r'\(\s*symbol\s+"[^"]+:', text)
+            symbols = [ re.sub('^.*"', '', s).replace(':','') for s in symbols]
+            for s in symbols:
+                modules.add("kicad_lib_symbols_" + s)
 
-    # get footprints from pcb files
-    for fname in glob.glob('**.kicad_pcb'):
-        with open(fname) as f:
-            text = f.read()
-            footprints = re.findall(r'\(\s*footprint\s+"[^"]+"', text)
-            footprints = [ re.sub('.*"', '', re.sub(':.*', '', fp)) for fp in footprints]
-            for ft in footprints:
-                modules.add("kicad_lib_footprints_" + ft)
+        # get footprints from pcb files
+        for fname in glob.glob('**.kicad_pcb'):
+            with open(fname) as f:
+                text = f.read()
+                footprints = re.findall(r'\(\s*footprint\s+"[^"]+"', text)
+                footprints = [ re.sub('.*"', '', re.sub(':.*', '', fp)) for fp in footprints]
+                for ft in footprints:
+                    modules.add("kicad_lib_footprints_" + ft)
 
     deps = {}
     for modulename in sorted(modules):

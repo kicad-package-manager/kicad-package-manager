@@ -7,6 +7,7 @@ from . import show
 from . import build
 from . import upload
 from . import run
+from . import init_package
 
 
 def main():
@@ -26,7 +27,9 @@ def main():
 		"install": install,
 		"build":   build,
 		"upload":  upload,
+		"release": release,
 		"run":     run,
+		"init_package": init_package,
 	}
 	for command_name, module in commands.items():
 		subparser = subparsers.add_parser(command_name)
@@ -34,7 +37,6 @@ def main():
 			module.init_command(subparser)
 
 	args = parser.parse_args()
-	print(args)
 
 	if args._command is None:
 		parser.print_help()
