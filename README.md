@@ -43,7 +43,94 @@ Open the "KiCad Command Prompt"
 pip3 install kicad-package-manager
 ```
 
+In your KiCad project directory, run
 
+```bash
+kpm init
+```
+
+Then edit your `kpm.json` file as needed.
+
+
+How to Install a Package
+------------------------
+
+Find a package you want to use:
+
+```bash
+kpm list
+kpm list | grep something
+kpm search something
+kpm show some_package
+```
+
+Then edit the `dependencies` list in your `kpm.json` to include a package and version. Example:
+
+```json
+{
+	"name": "cool-project",
+	"version": "0.0.1",
+	"author": "danroblewis",
+	"homepage": "http://githab.info/magic/stuff",
+	"commands": {
+		"test": "./fictional-spice-tester"
+	},
+	"dependencies": {
+		"kpm-jlcpcb-basic": "0.0.5",
+		"eurorack-parts": "0.0.1"
+	}
+}
+```
+
+How to Create a Package
+-----------------------
+
+Create a directory, it can be a KiCad project directory or any directory. Probably put it under version control with something like git.
+
+```bash
+kpm init
+```
+
+This creates a `kpm.json` file. Add the dependencies your package will require to the `dependencies` list.
+
+Your package will include your `kpm.json` file and any of these directories if they are present:
+
+```
+/symbols
+/footprints
+/3dmodels
+/3dmodels
+/plugins
+/simulation
+/sheets
+/tests
+/scripts
+```
+
+To build the package
+
+```bash
+kpm build
+```
+
+You should now have a `package.zip` file in your project directory.
+
+To upload a package to the registry, first create a `~/.kpmrc` file:
+```json
+{
+	"name": "yourname",
+	"token": "arbitrarytokenonlyyouknow"
+}
+```
+
+Then update the version in your `kpm.json` file.
+
+Then run
+```bash
+kpm upload
+```
+
+You should then see your package in the `kpm search <yourpackagename>` 
 
 Usage
 -----
@@ -121,4 +208,3 @@ Package Directory Structure
 /scripts/
 /scripts/mycommand.py
 ```
-
