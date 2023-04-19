@@ -18,7 +18,7 @@ def run_command(args):
         shutil.rmtree(build_dir)
     os.makedirs(build_dir)
 
-    package_dirs = ['symbols', 'footprints']
+    package_dirs = ['symbols', 'footprints', 'subsheets']
     for package_dir in package_dirs:
         if os.path.exists(package_dir):
             shutil.copytree(package_dir, os.path.join(build_dir, package_dir))
