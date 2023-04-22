@@ -3,7 +3,7 @@ import os
 import json
 
 
-repourl = "http://vps-407d02be.vps.ovh.us:5001"
+repourl = "http://vps-407d02be.vps.ovh.us:80"
 
 
 def run_command(args):

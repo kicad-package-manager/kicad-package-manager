@@ -4,7 +4,7 @@ import os
 import requests
 
 
-repourl = "http://vps-407d02be.vps.ovh.us:5001"
+repourl = "http://vps-407d02be.vps.ovh.us:80"
 
 
 def get_release_for(package_name, version):

@@ -44,4 +44,9 @@ ToDo:
 	- should run release command
 	- should tag commit and make github release with package.zip
 - kpm generator for a package template
+	- kpm package template should include a `symbols/projname.kicad_sym` file and a `footprints/projname.pretty/project.kicad_mod` file
+	- it should also include a `commands/__init__.py` with a commented out command
+	- sample test setup with pytest and a kicad unit testing library
+	- sample wxPython plugin, commented out as well
+	- 
 
