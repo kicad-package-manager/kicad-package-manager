@@ -4,7 +4,7 @@ import os
 import requests
 
 
-repourl = "http://vps-407d02be.vps.ovh.us:80"
+repourl = "http://kihub.info"
 
 
 def get_release_for(package_name, version):

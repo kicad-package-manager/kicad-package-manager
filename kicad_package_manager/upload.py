@@ -3,7 +3,7 @@ import os
 import json
 
 
-repourl = "http://vps-407d02be.vps.ovh.us:80"
+repourl = "http://kihub.info"
 
 
 def run_command(args):
